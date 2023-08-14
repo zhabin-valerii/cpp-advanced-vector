@@ -7,7 +7,6 @@
 
 namespace {
 
-    // "Магическое" число, используемое для отслеживания живости объекта
     inline const uint32_t DEFAULT_COOKIE = 0xdeadbeef;
 
     struct TestObj {
@@ -359,8 +358,6 @@ void Test4() {
     {
         Vector<TestObj> v(1);
         assert(v.Size() == v.Capacity());
-        // Операция PushBack существующего элемента вектора должна быть безопасна
-        // даже при реаллокации памяти
         v.PushBack(v[0]);
         assert(v[0].IsAlive());
         assert(v[1].IsAlive());
@@ -368,8 +365,6 @@ void Test4() {
     {
         Vector<TestObj> v(1);
         assert(v.Size() == v.Capacity());
-        // Операция PushBack для перемещения существующего элемента вектора должна быть безопасна
-        // даже при реаллокации памяти
         v.PushBack(std::move(v[0]));
         assert(v[0].IsAlive());
         assert(v[1].IsAlive());
@@ -395,8 +390,6 @@ void Test5() {
     {
         Vector<TestObj> v(1);
         assert(v.Size() == v.Capacity());
-        // Операция EmplaceBack существующего элемента вектора должна быть безопасна
-        // даже при реаллокации памяти
         v.EmplaceBack(v[0]);
         assert(v[0].IsAlive());
         assert(v[1].IsAlive());
